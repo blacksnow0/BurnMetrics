@@ -34,15 +34,15 @@ const Challenges = () => {
   };
 
   return (
-    <div className="min-h-screen p-8" style={{ borderTop: "1px solid black" }}>
-      <h1 className="text-4xl font-bold text-center mb-4 tracking-widest">
+    <div className="min-h-screen p-8">
+      <h1 className="text-4xl font-bold text-center mb-4 lg:mb-16 tracking-widest">
         75-Hard
       </h1>
       <ProgressBar progress={progress} />
       <DailyChecklist tasks={dailyTasks} onTaskToggle={handleTaskCompletion} />
       <button
         onClick={markDayComplete}
-        className="bg-blue-500 text-white px-4 py-2 rounded-lg mt-4 block mx-auto"
+        className="bg-orange-400 hover:bg-orange-500 text-white font-semibold py-3 px-6 rounded-md shadow-md transition duration-300 block mx-auto mt-4"
       >
         Complete Day
       </button>

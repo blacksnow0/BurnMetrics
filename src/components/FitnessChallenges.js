@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Autoplay } from "swiper/modules";
 
@@ -10,21 +10,8 @@ import seventfivehard from "../Assets/75hard.jpeg";
 
 import winter from "../Assets/winter.jpeg";
 import running from "../Assets/running.jpeg";
-import ProgressBar from "./ProgressBar";
-import DailyChecklist from "./DailyChecklist";
-import CalendarView from "./CalenderView";
 
 const FitnessChallenges = () => {
-  const [dailyTasks, setDailyTasks] = useState({
-    "Workout 1": false,
-    "Workout 2": false,
-    "Drink Water": false,
-    "Read 10 Pages": false,
-    "Follow a Diet": false,
-  });
-
-  const [history, setHistory] = useState(Array(75).fill(false));
-
   const challenges = [
     {
       title: "75 Hard",
