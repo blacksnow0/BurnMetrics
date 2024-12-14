@@ -1,11 +1,16 @@
 import React, { useState } from "react";
 import ProgressBar from "../components/ProgressBar";
 import DailyChecklist from "../components/DailyChecklist";
-import CalendarView from "../components/CalenderView";
+import CalendarView from "../components/CalendarView";
 
 const Challenges = () => {
   const [progress, setProgress] = useState(0);
-  const [history, setHistory] = useState(Array(75).fill(false));
+  const [history, setHistory] = useState(
+    Array(10).fill(true).concat(Array(65).fill(false))
+  );
+  const startDate = "2024-12-04";
+
+  console.log(history);
   const [dailyTasks, setDailyTasks] = useState({
     "Workout 1": false,
     "Workout 2": false,
@@ -46,7 +51,7 @@ const Challenges = () => {
       >
         Complete Day
       </button>
-      <CalendarView history={history} />
+      <CalendarView history={history} startDate={startDate} />
     </div>
   );
 };

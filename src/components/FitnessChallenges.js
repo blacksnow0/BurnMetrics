@@ -84,10 +84,10 @@ const FitnessChallenges = () => {
               </SwiperSlide>
             ))}
 
-            <div className="swiper-button-next text-3xl !text-orange-500 hover:!text-orange-600 absolute top-1/2 right-4 z-10 cursor-pointer">
+            <div className="swiper-button-next  text-3xl !text-gray-400 hover:!text-gray-600 absolute top-1/2 right-4 z-10 cursor-pointer">
               &rarr;
             </div>
-            <div className="swiper-button-prev text-3xl !text-orange-500 hover:!text-orange-600 absolute top-1/2 left-4 z-10 cursor-pointer">
+            <div className="swiper-button-prev text-3xl !text-gray-400 hover:!text-gray-600 absolute top-1/2 left-4 z-10 cursor-pointer">
               &larr;
             </div>
           </Swiper>

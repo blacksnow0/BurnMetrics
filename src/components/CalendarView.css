@@ -1,0 +1,94 @@
+/* Calendar container */
+.calendar-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  overflow: hidden;
+  width: 100%;
+  margin-top: 20px;
+}
+
+/* Calendar styling */
+.react-calendar {
+  width: 100%;
+  border: none;
+}
+
+.react-calendar__tile {
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  position: relative;
+  padding: 10px;
+}
+
+.react-calendar__tile:hover {
+  background-color: #e9ecef;
+}
+
+.react-calendar__month-view__days__day {
+  font-size: 14px;
+  color: #495057;
+  transition: color 0.3s ease;
+}
+
+.react-calendar__month-view__days__day:hover {
+  color: #d97706;
+}
+
+/* Streak days styling */
+.streak-day {
+  background-color: #d97706; /* Soft green for streak */
+  color: white;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.react-calendar__tile--active {
+  background-color: #b06005 !important; /* Custom color for active tile */
+  color: white !important;
+  font-weight: bold;
+}
+
+.react-calendar__tile--active:hover {
+  background-color: #a85c05 !important; /* Slightly darker color on hover */
+}
+
+/* Styling for the current day */
+.react-calendar__tile--now {
+  background-color: #ffcc00 !important; /* Highlight color for today */
+  font-weight: bold;
+}
+
+/* Add a hover effect for the current day */
+.react-calendar__tile--now:hover {
+  background-color: #ffa500 !important;
+  color: white !important;
+}
+
+/* Responsiveness */
+@media screen and (max-width: 768px) {
+  .react-calendar__tile {
+    font-size: 12px;
+  }
+
+  .calendar-container {
+    padding: 10px;
+  }
+
+  .streak-day {
+    padding: 10px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .react-calendar__tile {
+    font-size: 10px;
+  }
+
+  .streak-day {
+    padding: 8px;
+  }
+}
