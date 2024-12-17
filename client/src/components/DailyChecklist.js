@@ -39,15 +39,16 @@ const DailyChecklist = ({ tasks, onTaskToggle }) => {
       </div>
 
       <h2 className="text-2xl font-bold mb-4">Today's Tasks</h2>
-      {Object.keys(tasks).map((task) => (
+      {Object.keys(tasks).map((task, index) => (
         <div key={task} className="flex items-center mb-2">
           <input
             type="checkbox"
+            id={`task-${index}`}
             checked={tasks[task]}
             onChange={() => onTaskToggle(task)}
             className="mr-2"
           />
-          <label>{task}</label>
+          <label htmlFor={`task-${index}`}>{task}</label>
         </div>
       ))}
     </div>

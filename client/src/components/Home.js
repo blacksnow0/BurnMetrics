@@ -18,8 +18,8 @@ const Home = () => {
           </p>
 
           <a
-            href="/get-started"
-            className="bg-orange-400 hover:bg-orange-500 text-white font-semibold py-3 px-6 rounded-md shadow-md transition duration-300"
+            href="/challenges"
+            className="bg-orange-500 hover:bg-orange-600 text-white font-semibold py-3 px-6 rounded-md shadow-md transition duration-300"
           >
             Get Started
           </a>

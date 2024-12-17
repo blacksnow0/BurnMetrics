@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useLogin } from "../hooks/useLogin";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const { login } = useLogin();
@@ -8,6 +9,8 @@ const Login = () => {
     password: "",
   });
   const [error, setError] = useState(""); // State for error messages
+
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -23,6 +26,8 @@ const Login = () => {
     try {
       await login(formData.username, formData.password);
       alert("Login Successful!");
+      navigate("/profile");
+
       setFormData({ username: "", password: "" });
     } catch (err) {
       setError(err.message || "Invalid username or password"); // Set error message
@@ -31,7 +36,7 @@ const Login = () => {
 
   return (
     <div className="flex items-center justify-center min-h-screen">
-      <div className="w-full max-w-md p-8 space-y-6 bg-white rounded-lg shadow-md">
+      <div className="w-full max-w-md p-8 space-y-6 lg:bg-white lg:rounded-lg lg:shadow-md">
         <h2 className="text-2xl font-bold text-center text-gray-800">Login</h2>
         <form className="space-y-4" onSubmit={handleSubmit}>
           {/* Display Error */}

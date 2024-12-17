@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { useRegister } from "../hooks/useRegister";
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
+  const navigate = useNavigate();
   const { register } = useRegister();
   const [formData, setFormData] = useState({
     username: "",
@@ -28,13 +30,14 @@ const Register = () => {
     console.log("User Data:", formData); // Replace with API call for registration
     alert("Registration Successful!");
     register(formData.username, formData.password);
+    navigate("/profile");
 
     setFormData({ username: "", password: "", confirmPassword: "" });
   };
 
   return (
     <div className="flex items-center justify-center min-h-screen ">
-      <div className="w-full max-w-md p-8 space-y-6 bg-white rounded-lg shadow-md">
+      <div className="w-full max-w-md p-8 space-y-6 lg:bg-white lg:rounded-lg lg:shadow-md">
         <h2 className="text-2xl font-bold text-center text-gray-800">
           Register
         </h2>

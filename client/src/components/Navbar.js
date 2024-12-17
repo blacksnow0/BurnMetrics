@@ -1,7 +1,11 @@
 import React, { useState } from "react";
+import { useAuthContext } from "../hooks/useAuthContext";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const { user } = useAuthContext();
+
+  console.log(user);
 
   return (
     <nav className="sticky top-0 z-50  bg-transparent backdrop-blur-lg bg-opacity-80">
@@ -9,7 +13,9 @@ const Navbar = () => {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <div className="flex items-center">
-            <span className="text-xl font-bold">BurnMetrics</span>
+            <a href="/" className="text-xl font-bold">
+              BurnMetrics
+            </a>
           </div>
 
           {/* Desktop Navigation */}
@@ -33,16 +39,16 @@ const Navbar = () => {
               Workouts
             </a>
             <a
-              href="/profile"
-              className="hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-            >
-              Profile
-            </a>
-            <a
               href="/challenges"
               className="hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
             >
               Challenges
+            </a>
+            <a
+              href="/profile"
+              className="hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+            >
+              Profile
             </a>
           </div>
 
