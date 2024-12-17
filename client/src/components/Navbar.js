@@ -1,11 +1,7 @@
 import React, { useState } from "react";
-import { useAuthContext } from "../hooks/useAuthContext";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const { user } = useAuthContext();
-
-  console.log(user);
 
   return (
     <nav className="sticky top-0 z-50  bg-transparent backdrop-blur-lg bg-opacity-80">

@@ -18,16 +18,19 @@ const FitnessChallenges = () => {
       description:
         "A mental toughness program designed to challenge your limits.",
       image: seventfivehard,
+      link: "/challenges",
     },
     {
       title: "100 km in a Week",
       description: "Run or walk 100 km in one week to test your endurance.",
       image: running,
+      link: "/running",
     },
     {
       title: "Winter Arc",
       description: "Stay active and fit during the cold winter months.",
       image: winter,
+      link: "/challenges",
     },
   ];
 
@@ -77,7 +80,7 @@ const FitnessChallenges = () => {
                       {challenge.description}
                     </p>
                     <button className="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-lg transition duration-300">
-                      Start Now
+                      <a href={challenge.link}>Start Now</a>
                     </button>
                   </div>
                 </div>

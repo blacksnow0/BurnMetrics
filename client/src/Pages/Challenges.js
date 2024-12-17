@@ -47,7 +47,7 @@ const Challenges = () => {
       <DailyChecklist tasks={dailyTasks} onTaskToggle={handleTaskCompletion} />
       <button
         onClick={markDayComplete}
-        className="bg-orange-400 hover:bg-orange-500 text-white font-semibold py-3 px-6 rounded-md shadow-md transition duration-300 block mx-auto mt-4"
+        className="bg-orange-500 hover:bg-orange-600 text-white font-semibold py-3 px-6 rounded-md shadow-md transition duration-300 block mx-auto mt-4"
       >
         Complete Day
       </button>

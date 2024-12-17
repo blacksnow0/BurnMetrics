@@ -7,6 +7,8 @@ import Workouts from "./Pages/Workouts";
 import Register from "./components/Register";
 import Login from "./components/Login";
 import Profile from "./Pages/Profile";
+import Footer from "./components/Footer";
+import RunningChallenge from "./components/RunningChallenge";
 
 function App() {
   return (
@@ -21,7 +23,9 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/running" element={<RunningChallenge />} />
       </Routes>
+      <Footer />
     </Router>
   );
 }
