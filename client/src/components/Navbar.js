@@ -22,12 +22,7 @@ const Navbar = () => {
             >
               Home
             </a>
-            <a
-              href="/dashboard"
-              className="hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-            >
-              Dashboard
-            </a>
+
             <a
               href="/workouts"
               className="hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
@@ -83,12 +78,6 @@ const Navbar = () => {
             className="block hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
           >
             Home
-          </a>
-          <a
-            href="/dashboard"
-            className="block hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-          >
-            Dashboard
           </a>
           <a
             href="/workouts"

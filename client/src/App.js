@@ -9,6 +9,7 @@ import Login from "./components/Login";
 import Profile from "./Pages/Profile";
 import Footer from "./components/Footer";
 import RunningChallenge from "./components/RunningChallenge";
+import CreateWorkout from "./components/workout/CreateWorkout";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/running" element={<RunningChallenge />} />
+        <Route path="/workouts/create" element={<CreateWorkout />} />
       </Routes>
       <Footer />
     </Router>
