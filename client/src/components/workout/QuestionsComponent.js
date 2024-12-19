@@ -75,7 +75,7 @@ const QuestionsComponent = ({ fitnessGoal, setUserAnswers, generatePlan }) => {
         </div>
       ))}
       <button
-        className="mt-4 px-4 py-2 bg-green-500 text-white rounded"
+        className="mt-4 px-4 py-2 font-semibold bg-orange-500 hover:bg-orange-600 text-white rounded"
         onClick={handleSubmit}
       >
         Generate Plan

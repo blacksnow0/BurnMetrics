@@ -8,9 +8,10 @@ const Workouts = () => {
   const [fitnessGoal, setFitnessGoal] = useState("");
   const [workoutPlan, setWorkoutPlan] = useState(null);
   const [userAnswers, setUserAnswers] = useState({});
-  const [createOwnWorkout, setCreateOwnWorkout] = useState(false); // New state to toggle
+  const [createOwnWorkout, setCreateOwnWorkout] = useState(false);
 
   const generatePlan = (answers) => {
+    console.log(userAnswers);
     let plan = [];
     if (fitnessGoal === "weightLoss") {
       plan = [

@@ -53,13 +53,12 @@ const CreateWorkout = () => {
       reps: "",
       sets: "",
       weight: "",
-      duration: "",
       notes: "",
     });
   };
 
   return (
-    <div className="min-h-screen flex flex-col justify-center items-center ">
+    <div className="min-h-screen flex  flex-col justify-center items-center ">
       {/* Workout Form */}
       <form
         onSubmit={handleSubmit}
@@ -91,69 +90,56 @@ const CreateWorkout = () => {
           </select>
         </div>
 
-        {/* Reps */}
-        <div className="mb-4">
-          <label htmlFor="reps" className="block text-sm font-semibold mb-1">
-            Reps
-          </label>
-          <input
-            type="number"
-            name="reps"
-            value={workout.reps}
-            onChange={handleChange}
-            placeholder="Enter number of reps"
-            className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-orange-500"
-            required
-          />
-        </div>
+        <div className="flex flex-row">
+          {/* Reps */}
+          <div className="mb-4">
+            <label htmlFor="reps" className="block text-sm font-semibold mb-1">
+              Reps
+            </label>
+            <input
+              type="number"
+              name="reps"
+              value={workout.reps}
+              onChange={handleChange}
+              placeholder="reps"
+              className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-orange-500"
+              required
+            />
+          </div>
 
-        {/* Sets */}
-        <div className="mb-4">
-          <label htmlFor="sets" className="block text-sm font-semibold mb-1">
-            Sets
-          </label>
-          <input
-            type="number"
-            name="sets"
-            value={workout.sets}
-            onChange={handleChange}
-            placeholder="Enter number of sets"
-            className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-orange-500"
-            required
-          />
-        </div>
+          {/* Sets */}
+          <div className="mb-4">
+            <label htmlFor="sets" className="block text-sm font-semibold mb-1">
+              Sets
+            </label>
+            <input
+              type="number"
+              name="sets"
+              value={workout.sets}
+              onChange={handleChange}
+              placeholder="sets"
+              className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-orange-500"
+              required
+            />
+          </div>
 
-        {/* Weight */}
-        <div className="mb-4">
-          <label htmlFor="weight" className="block text-sm font-semibold mb-1">
-            Weight (optional)
-          </label>
-          <input
-            type="number"
-            name="weight"
-            value={workout.weight}
-            onChange={handleChange}
-            placeholder="Enter weight in kg"
-            className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-orange-500"
-          />
-        </div>
-
-        {/* Duration */}
-        <div className="mb-4">
-          <label
-            htmlFor="duration"
-            className="block text-sm font-semibold mb-1"
-          >
-            Duration (optional)
-          </label>
-          <input
-            type="text"
-            name="duration"
-            value={workout.duration}
-            onChange={handleChange}
-            placeholder="Enter duration (e.g., 30 mins)"
-            className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-orange-500"
-          />
+          {/* Weight */}
+          <div className="mb-4">
+            <label
+              htmlFor="weight"
+              className="block text-sm font-semibold mb-1"
+            >
+              Weight
+            </label>
+            <input
+              type="number"
+              name="weight"
+              value={workout.weight}
+              onChange={handleChange}
+              placeholder="kg"
+              className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-orange-500"
+            />
+          </div>
         </div>
 
         {/* Notes */}
