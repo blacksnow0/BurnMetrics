@@ -4,19 +4,19 @@ import { useAuthContext } from "./useAuthContext";
 
 export const useRegister = () => {
   const { dispatch } = useAuthContext();
-  const register = async (username, password) => {
+  const register = async (formData) => {
     try {
-      const res = await axios.post("http://localhost:5001/api/users/register", {
-        username,
-        password,
-      });
+      const res = await axios.post(
+        "http://localhost:5001/api/users/register",
+        formData
+      );
       if (res.status === 200) {
         const { username, token } = res.data;
         localStorage.setItem("user", JSON.stringify({ username, token }));
         dispatch({ type: "LOGIN", payload: { username, token } });
       }
     } catch (err) {
-      console.log(err);
+      console.error("Registeration failed", err.response?.data || err.message);
     }
   };
   return { register };

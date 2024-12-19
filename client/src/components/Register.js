@@ -7,9 +7,16 @@ const Register = () => {
   const { register } = useRegister();
   const [formData, setFormData] = useState({
     username: "",
+    email: "",
     password: "",
     confirmPassword: "",
+    height: "",
+    weight: "",
+    fitnessGoal: "",
+    age: "",
   });
+
+  const [emailError, setEmailError] = useState("");
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -17,6 +24,19 @@ const Register = () => {
       ...prev,
       [name]: value,
     }));
+
+    if (name === "email") {
+      validateEmail(value);
+    }
+  };
+
+  const validateEmail = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      setEmailError("Please enter a valid email address.");
+    } else {
+      setEmailError("");
+    }
   };
 
   const handleSubmit = (e) => {
@@ -27,22 +47,31 @@ const Register = () => {
       return;
     }
 
-    console.log("User Data:", formData); // Replace with API call for registration
+    console.log("User Data:", formData);
     alert("Registration Successful!");
-    register(formData.username, formData.password);
+    register(formData);
     navigate("/profile");
 
-    setFormData({ username: "", password: "", confirmPassword: "" });
+    setFormData({
+      username: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
+      height: "",
+      weight: "",
+      fitnessGoal: "",
+      age: "",
+    });
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen ">
-      <div className="w-full max-w-md p-8 space-y-6 lg:bg-white lg:rounded-lg lg:shadow-md">
+    <div className="flex items-center justify-center min-h-screen mb-5">
+      <div className="w-full max-w-md p-8 space-y-6 bg-white rounded-lg shadow-md">
         <h2 className="text-2xl font-bold text-center text-gray-800">
           Register
         </h2>
         <form className="space-y-4" onSubmit={handleSubmit}>
-          {/* Username Field */}
+          {/* Username */}
           <div>
             <label
               htmlFor="username"
@@ -58,11 +87,34 @@ const Register = () => {
               onChange={handleChange}
               placeholder="Enter your username"
               required
-              className="w-full px-4 py-2 mt-1 text-sm border rounded-md focus:ring-indigo-500 focus:border-indigo-500 border-gray-300"
+              className="w-full px-4 py-2 mt-1 text-sm border rounded-md border-gray-300 focus:ring-indigo-500 focus:border-indigo-500"
             />
           </div>
 
-          {/* Password Field */}
+          {/* Email */}
+          <div>
+            <label
+              htmlFor="email"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Email
+            </label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              placeholder="Enter your email"
+              required
+              className="w-full px-4 py-2 mt-1 text-sm border rounded-md border-gray-300 focus:ring-indigo-500 focus:border-indigo-500"
+            />
+            {emailError && (
+              <p className="mt-1 text-sm text-red-600">{emailError}</p>
+            )}
+          </div>
+
+          {/* Password */}
           <div>
             <label
               htmlFor="password"
@@ -78,11 +130,11 @@ const Register = () => {
               onChange={handleChange}
               placeholder="Enter your password"
               required
-              className="w-full px-4 py-2 mt-1 text-sm border rounded-md focus:ring-indigo-500 focus:border-indigo-500 border-gray-300"
+              className="w-full px-4 py-2 mt-1 text-sm border rounded-md border-gray-300 focus:ring-indigo-500 focus:border-indigo-500"
             />
           </div>
 
-          {/* Confirm Password Field */}
+          {/* Confirm Password */}
           <div>
             <label
               htmlFor="confirmPassword"
@@ -98,20 +150,98 @@ const Register = () => {
               onChange={handleChange}
               placeholder="Re-enter your password"
               required
-              className="w-full px-4 py-2 mt-1 text-sm border rounded-md focus:ring-indigo-500 focus:border-indigo-500 border-gray-300"
+              className="w-full px-4 py-2 mt-1 text-sm border rounded-md border-gray-300 focus:ring-indigo-500 focus:border-indigo-500"
             />
           </div>
 
-          {/* Submit Button */}
+          {/* Age */}
+          <div>
+            <label
+              htmlFor="age"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Age
+            </label>
+            <input
+              type="number"
+              id="age"
+              name="age"
+              value={formData.age}
+              onChange={handleChange}
+              placeholder="Enter your age"
+              className="w-full px-4 py-2 mt-1 text-sm border rounded-md border-gray-300 focus:ring-indigo-500 focus:border-indigo-500"
+            />
+          </div>
+
+          {/* Height */}
+          <div>
+            <label
+              htmlFor="height"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Height (in cm)
+            </label>
+            <input
+              type="number"
+              id="height"
+              name="height"
+              value={formData.height}
+              onChange={handleChange}
+              placeholder="Enter your height"
+              className="w-full px-4 py-2 mt-1 text-sm border rounded-md border-gray-300 focus:ring-indigo-500 focus:border-indigo-500"
+            />
+          </div>
+
+          {/* Weight */}
+          <div>
+            <label
+              htmlFor="weight"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Weight (in kg)
+            </label>
+            <input
+              type="number"
+              id="weight"
+              name="weight"
+              value={formData.weight}
+              onChange={handleChange}
+              placeholder="Enter your weight"
+              className="w-full px-4 py-2 mt-1 text-sm border rounded-md border-gray-300 focus:ring-indigo-500 focus:border-indigo-500"
+            />
+          </div>
+
+          {/* Fitness Goal */}
+          <div>
+            <label
+              htmlFor="fitnessGoal"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Fitness Goal
+            </label>
+            <select
+              id="fitnessGoal"
+              name="fitnessGoal"
+              value={formData.fitnessGoal}
+              onChange={handleChange}
+              className="w-full px-4 py-2 mt-1 text-sm border rounded-md border-gray-300 focus:ring-indigo-500 focus:border-indigo-500"
+            >
+              <option value="">Select your goal</option>
+              <option value="weight-loss">Weight Loss</option>
+              <option value="muscle-gain">Muscle Gain</option>
+              <option value="maintenance">Maintenance</option>
+            </select>
+          </div>
+
+          {/* Submit */}
           <button
             type="submit"
-            className="w-full py-2 text-white  bg-orange-600 rounded-md hover:bg-orange-700 focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 focus:outline-none"
+            className="w-full py-2 text-white bg-orange-600 rounded-md hover:bg-orange-700 focus:ring-2 focus:ring-orange-500 focus:ring-offset-2"
           >
             Register
           </button>
         </form>
-
-        <p className="text-sm text-center text-gray-600">
+        <p className="text-sm text-center text-gray-600 ">
           Already have an account?{" "}
           <a
             href="/login"

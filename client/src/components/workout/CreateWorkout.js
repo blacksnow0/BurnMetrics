@@ -63,7 +63,7 @@ const CreateWorkout = () => {
       {/* Workout Form */}
       <form
         onSubmit={handleSubmit}
-        className="bg-white p-8 shadow-md rounded-md w-full max-w-md mb-8"
+        className="lg:bg-white p-8 shadow-md rounded-md w-full max-w-md mb-8"
       >
         <h2 className="text-2xl font-bold text-center mb-6">Create Workout</h2>
 
@@ -181,7 +181,7 @@ const CreateWorkout = () => {
       </form>
 
       {/* List of Exercises */}
-      <div className="bg-white p-6 shadow-md rounded-md w-full max-w-md mb-5">
+      <div className="lg:bg-white p-6 shadow-md rounded-md w-full max-w-md mb-5">
         <h3 className="text-lg font-bold mb-4">Your Exercises for the Day</h3>
         {exercises.length > 0 ? (
           <ul className="space-y-4">
