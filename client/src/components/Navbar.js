@@ -47,7 +47,7 @@ const Navbar = () => {
           <div className="md:hidden">
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="text-gray-400 hover:text-white hover:bg-gray-700 p-2 rounded-md"
+              className="text-gray-400  p-2 rounded-md"
             >
               <svg
                 className="h-6 w-6"
@@ -75,25 +75,25 @@ const Navbar = () => {
         <div className="md:hidden ">
           <a
             href="/"
-            className="block hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+            className="block  px-3 py-2 rounded-md text-sm font-medium"
           >
             Home
           </a>
           <a
             href="/workouts"
-            className="block hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+            className="block  px-3 py-2 rounded-md text-sm font-medium"
           >
             Workouts
           </a>
           <a
             href="/profile"
-            className="block hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+            className="block  px-3 py-2 rounded-md text-sm font-medium"
           >
             Profile
           </a>
           <a
             href="/challenges"
-            className="block hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+            className="block  px-3 py-2 rounded-md text-sm font-medium"
           >
             Challenges
           </a>

@@ -18,7 +18,7 @@ const FitnessChallenges = () => {
       description:
         "A mental toughness program designed to challenge your limits.",
       image: seventfivehard,
-      link: "/challenges",
+      link: "/seventyfive",
     },
     {
       title: "100 km in a Week",
