@@ -5,13 +5,11 @@ const {
   loginUser,
   registerUser,
   updateProfile,
+  fetchProfile,
 } = require("../controllers/userController");
 const requireAuth = require("../middleware/authMiddleware");
 
-userRouter.get("/", (req, res) => {
-  res.json("howdy");
-});
-
+userRouter.get("/", requireAuth, fetchProfile);
 userRouter.post("/register", registerUser);
 userRouter.post("/login", loginUser);
 userRouter.put("/updateProfile", requireAuth, updateProfile);

@@ -9,13 +9,26 @@ const createToken = (_id) => {
   });
 };
 
+const fetchProfile = async (req, res) => {
+  const { _id } = req.user;
+  try {
+    const user = await User.findById({ _id });
+    if (!user) {
+      res.status(404).json("user not found");
+    }
+    res.status(200).json({ user });
+  } catch (err) {
+    console.log(err.message);
+  }
+};
+
 // Login User
 const loginUser = async (req, res) => {
-  const { usernameOrEmail, password } = req.body;
+  const { username, password } = req.body;
 
   try {
     // Attempt login with username or email
-    const user = await User.login(usernameOrEmail, password);
+    const user = await User.login(username, password);
 
     // Generate token
     const token = createToken(user._id);
@@ -34,11 +47,13 @@ const loginUser = async (req, res) => {
 
 // Register User
 const registerUser = async (req, res) => {
-  const { username, email, password, height, weight, fitnessGoal } = req.body;
+  const { username, email, password, age, height, weight, fitnessGoal } =
+    req.body;
 
   try {
     // Register a new user with optional profile data
     const profile = {
+      age: age || null,
       height: height || null,
       weight: weight || null,
       fitnessGoal: fitnessGoal || null,
@@ -63,7 +78,7 @@ const registerUser = async (req, res) => {
 
 const updateProfile = async (req, res) => {
   const { _id } = req.user; // Extracted from token in middleware
-  const { height, weight, fitnessGoal } = req.body;
+  const { age, height, weight, fitnessGoal } = req.body;
 
   try {
     // Find the user by ID and update their profile
@@ -71,6 +86,7 @@ const updateProfile = async (req, res) => {
       _id,
       {
         $set: {
+          ...(age !== "undefined" && { "profile.age": age }),
           ...(height !== "undefined" && { "profile.height": height }),
           ...(weight !== "undefined" && { "profile.weight": weight }),
           ...(fitnessGoal !== "undefined" && {
@@ -91,4 +107,4 @@ const updateProfile = async (req, res) => {
   }
 };
 
-module.exports = { loginUser, registerUser, updateProfile };
+module.exports = { loginUser, registerUser, updateProfile, fetchProfile };

@@ -9,9 +9,10 @@ const userSchema = new Schema({
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   profile: {
-    height: { type: Number, default: null }, // Optional
-    weight: { type: Number, default: null }, // Optional
-    fitnessGoal: { type: String, default: null }, // Optional
+    age: { type: Number, default: null },
+    height: { type: Number, default: null },
+    weight: { type: Number, default: null },
+    fitnessGoal: { type: String, default: null },
   },
 });
 
@@ -38,6 +39,7 @@ userSchema.statics.register = async function (
     email,
     password: hashedPassword,
     profile: {
+      age: profile.age || null,
       height: profile.height || null,
       weight: profile.weight || null,
       fitnessGoal: profile.fitnessGoal || null,
