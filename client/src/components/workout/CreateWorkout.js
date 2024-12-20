@@ -1,23 +1,16 @@
 import React, { useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
 
 const CreateWorkout = () => {
-  const [workout, setWorkout] = useState({
-    exercise: "",
-    reps: "",
-    sets: "",
-    weight: "",
-    duration: "",
-    notes: "",
-  });
-
-  const [exercises, setExercises] = useState([]); // List of added exercises
+  const [days, setDays] = useState([{ title: "Day 1", exercises: [] }]);
 
   const exercisesOptions = [
     "Bench Press",
     "Squats",
     "Deadlift",
     "Lat Pulldown",
-    "Dumbell Shrugs",
+    "Dumbbell Shrugs",
     "Single-Arm Cable Rows",
     "Straight-Arm Pulldown",
     "Pull-Ups",
@@ -27,186 +20,95 @@ const CreateWorkout = () => {
     "Plank",
   ];
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setWorkout((prevWorkout) => ({
-      ...prevWorkout,
-      [name]: value,
-    }));
+  const handleAddDay = () => {
+    setDays((prevDays) => [
+      ...prevDays,
+      { title: `Day ${prevDays.length + 1}`, exercises: [] },
+    ]);
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleAddExercise = (dayIndex, exercise) => {
+    setDays((prevDays) => {
+      const updatedDays = [...prevDays];
+      const updatedDay = { ...updatedDays[dayIndex] };
+      updatedDay.exercises = [...updatedDay.exercises, exercise];
+      updatedDays[dayIndex] = updatedDay;
 
-    // Validation
-    if (!workout.exercise || !workout.reps) {
-      alert("Please fill in the required fields!");
-      return;
-    }
-
-    // Add current exercise to the list
-    setExercises((prevExercises) => [...prevExercises, workout]);
-
-    // Reset the form
-    setWorkout({
-      exercise: "",
-      reps: "",
-      sets: "",
-      weight: "",
-      notes: "",
+      return updatedDays;
     });
   };
 
   return (
-    <div className="min-h-screen flex  flex-col justify-center items-center ">
-      {/* Workout Form */}
-      <form
-        onSubmit={handleSubmit}
-        className="lg:bg-white p-8 shadow-md rounded-md w-full max-w-md mb-8"
-      >
-        <h2 className="text-2xl font-bold text-center mb-6">Create Workout</h2>
+    <div className="min-h-screen flex flex-col justify-center items-center p-4">
+      <h2 className="text-2xl font-bold text-center mb-6">
+        Create Workout Plan
+      </h2>
 
-        {/* Exercise Selection */}
-        <div className="mb-4">
-          <label
-            htmlFor="exercise"
-            className="block text-sm font-semibold mb-1"
-          >
-            Exercise
-          </label>
-          <select
-            name="exercise"
-            value={workout.exercise}
-            onChange={handleChange}
-            className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-orange-500"
-            required
-          >
-            <option value="">Select an Exercise</option>
-            {exercisesOptions.map((exercise, index) => (
-              <option key={index} value={exercise}>
-                {exercise}
-              </option>
-            ))}
-          </select>
-        </div>
-
-        <div className="flex flex-row">
-          {/* Reps */}
-          <div className="mb-4">
-            <label htmlFor="reps" className="block text-sm font-semibold mb-1">
-              Reps
-            </label>
-            <input
-              type="number"
-              name="reps"
-              value={workout.reps}
-              onChange={handleChange}
-              placeholder="reps"
-              className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-orange-500"
-              required
-            />
-          </div>
-
-          {/* Sets */}
-          <div className="mb-4">
-            <label htmlFor="sets" className="block text-sm font-semibold mb-1">
-              Sets
-            </label>
-            <input
-              type="number"
-              name="sets"
-              value={workout.sets}
-              onChange={handleChange}
-              placeholder="sets"
-              className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-orange-500"
-              required
-            />
-          </div>
-
-          {/* Weight */}
-          <div className="mb-4">
-            <label
-              htmlFor="weight"
-              className="block text-sm font-semibold mb-1"
-            >
-              Weight
-            </label>
-            <input
-              type="number"
-              name="weight"
-              value={workout.weight}
-              onChange={handleChange}
-              placeholder="kg"
-              className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-orange-500"
-            />
-          </div>
-        </div>
-
-        {/* Notes */}
-        <div className="mb-4">
-          <label htmlFor="notes" className="block text-sm font-semibold mb-1">
-            Notes (optional)
-          </label>
-          <textarea
-            name="notes"
-            value={workout.notes}
-            onChange={handleChange}
-            placeholder="Additional notes or goals"
-            className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-orange-500"
-            rows="3"
-          ></textarea>
-        </div>
-
-        {/* Submit Button */}
+      {/* Add Day Button */}
+      <div className="text-center m-6">
         <button
-          type="submit"
-          className="w-full bg-orange-500 hover:bg-orange-600 text-white font-semibold py-2 rounded-md shadow-md transition duration-300"
+          onClick={handleAddDay}
+          className="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-md shadow-md"
         >
-          Add Exercise
+          Add Another Day
         </button>
-      </form>
+      </div>
 
-      {/* List of Exercises */}
-      <div className="lg:bg-white p-6 shadow-md rounded-md w-full max-w-md mb-5">
-        <h3 className="text-lg font-bold mb-4">Your Exercises for the Day</h3>
-        {exercises.length > 0 ? (
-          <ul className="space-y-4">
-            {exercises.map((exercise, index) => (
-              <li
-                key={index}
-                className="flex flex-col border p-4 rounded-md bg-gray-50 shadow-sm"
-              >
-                <p>
-                  <strong>Exercise:</strong> {exercise.exercise}
-                </p>
-                <p>
-                  <strong>Reps:</strong> {exercise.reps}
-                </p>
-                <p>
-                  <strong>Sets:</strong> {exercise.sets}
-                </p>
+      {/* Workout Days Section */}
+      <div className="w-full">
+        <div
+          className="grid grid-cols-1 lg:grid-cols-3 gap-6 overflow-x-auto lg:overflow-x-hidden"
+          style={{ scrollSnapType: "x mandatory" }}
+        >
+          {days.map((day, index) => (
+            <div
+              key={index}
+              className="bg-white shadow-md rounded-md p-4 min-w-full lg:min-w-[280px]"
+              style={{ scrollSnapAlign: "start" }}
+            >
+              <h3 className="text-lg font-bold mb-4">{day.title}</h3>
 
-                {exercise.weight && (
-                  <p>
-                    <strong>Weight:</strong> {exercise.weight} kg
-                  </p>
-                )}
-                {exercise.duration && (
-                  <p>
-                    <strong>Duration:</strong> {exercise.duration}
-                  </p>
-                )}
-                {exercise.notes && (
-                  <p>
-                    <strong>Notes:</strong> {exercise.notes}
-                  </p>
-                )}
-              </li>
-            ))}
-          </ul>
-        ) : (
-          <p className="text-gray-500 text-center">No exercises added yet.</p>
-        )}
+              <div>
+                <label className="block text-sm font-semibold mb-1">
+                  Add Exercise
+                </label>
+                <select
+                  onChange={(e) =>
+                    e.target.value &&
+                    handleAddExercise(index, { name: e.target.value })
+                  }
+                  className="w-full px-4 py-2 border rounded-md mb-4"
+                >
+                  <option value="">Select an Exercise</option>
+                  {exercisesOptions.map((exercise, idx) => (
+                    <option key={idx} value={exercise}>
+                      {exercise}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              {/* Exercise List */}
+              {day.exercises.length > 0 ? (
+                <ul className="space-y-2">
+                  {day.exercises.map((exercise, idx) => (
+                    <li
+                      key={idx}
+                      className="flex items-center justify-between bg-gray-100 p-2 rounded-md shadow-sm"
+                    >
+                      {exercise.name}
+                      <button className="flex items-center gap-2 bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-md shadow-md">
+                        <FontAwesomeIcon icon={faTrash} className="w-3 h-3" />
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <p className="text-gray-500">No exercises added yet.</p>
+              )}
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
