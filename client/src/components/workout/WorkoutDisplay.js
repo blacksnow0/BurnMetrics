@@ -31,6 +31,31 @@ const WorkoutDisplay = () => {
     fetchWorkouts();
   }, [user]);
 
+  const handleDelete = async (workoutId) => {
+    console.log(workoutId);
+    const originalWorkouts = [...workouts];
+
+    // Optimistically update the UI
+    setWorkouts((prevWorkouts) =>
+      prevWorkouts.filter((workout) => workout._id !== workoutId)
+    );
+    try {
+      await axios.delete(
+        `http://localhost:5001/api/workouts/delete/${workoutId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+          },
+        }
+      );
+
+      console.log("Workout Deleted Sucessfully");
+    } catch (error) {
+      console.log(error, "Error deleting workout");
+      setWorkouts(originalWorkouts);
+    }
+  };
+
   if (loading) {
     return <div className="text-center py-5">Loading workouts...</div>;
   }
@@ -79,7 +104,10 @@ const WorkoutDisplay = () => {
               </div>
             ))}
           </div>
-          <button className="mt-4 px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 transition">
+          <button
+            onClick={() => handleDelete(workout._id)}
+            className="mt-4 px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 transition"
+          >
             Delete Workout
           </button>
         </div>

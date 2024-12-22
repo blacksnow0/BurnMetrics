@@ -13,6 +13,7 @@ const daySchema = new mongoose.Schema({
     required: true,
   },
   exercises: [exerciseSchema],
+  selectedBodyPart: { type: String },
 });
 
 const workoutSchema = new mongoose.Schema({

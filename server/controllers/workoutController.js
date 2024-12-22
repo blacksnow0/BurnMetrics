@@ -1,3 +1,4 @@
+const { default: mongoose } = require("mongoose");
 const Workout = require("../models/WorkoutModels");
 
 const getHello = async (req, res) => {
@@ -26,7 +27,6 @@ const createWorkout = async (req, res) => {
 const getUserWorkouts = async (req, res) => {
   try {
     const userId = req.user._id;
-    console.log(userId);
 
     const workouts = await Workout.find({ user_id: userId }).populate(
       "days.exercises"
@@ -39,4 +39,30 @@ const getUserWorkouts = async (req, res) => {
   }
 };
 
-module.exports = { getHello, createWorkout, getUserWorkouts };
+const deleteWorkout = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const userId = req.user._id;
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).json("Invalid User");
+    }
+
+    const workout = await Workout.findByIdAndDelete({
+      _id: id,
+      user_id: userId,
+    });
+
+    if (!workout) {
+      return res.status(400).json("Workout not found or unauthorize");
+    }
+
+    return res
+      .status(200)
+      .json({ message: "Workout deleted sucessfully", workout });
+  } catch (err) {
+    return res.status(500).json({ message: err.message });
+  }
+};
+
+module.exports = { getHello, createWorkout, getUserWorkouts, deleteWorkout };
