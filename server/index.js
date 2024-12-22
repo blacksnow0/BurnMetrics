@@ -4,6 +4,7 @@ require("dotenv").config();
 const userRouter = require("./routes/userRoute");
 const cors = require("cors");
 const challengeRouter = require("./routes/challengeRoutes");
+const workoutRouter = require("./routes/workoutRoutes");
 
 const app = express();
 app.use(express.json());
@@ -39,3 +40,5 @@ app.post("/posting", (req, res) => {
 app.use("/api/users", userRouter);
 
 app.use("/api/challenges", challengeRouter);
+
+app.use("/api/workouts", workoutRouter);
