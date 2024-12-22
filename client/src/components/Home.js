@@ -1,5 +1,6 @@
 import React from "react";
 import FitnessChallenges from "./FitnessChallenges";
+import WorkoutDisplay from "./workout/WorkoutDisplay";
 
 const Home = () => {
   return (
@@ -13,10 +14,10 @@ const Home = () => {
             Welcome To BurnMetrics
           </h1>
           <p className="text-lg md:text-xl mb-6 max-w-2xl">
-            Track your progress, achieve your fitness goals, and stay motivated
-            every step of the way!
+            "Jo cahiye tha bawee vo change hu khud" <br></br> Track your
+            progress, achieve your fitness goals, and stay motivated every step
+            of the way!
           </p>
-
           <a
             href="/challenges"
             className="bg-orange-500 hover:bg-orange-600 text-white font-semibold py-3 px-6 rounded-md shadow-md transition duration-300"
@@ -26,6 +27,7 @@ const Home = () => {
         </div>
       </div>
       <FitnessChallenges />
+      <WorkoutDisplay />
     </div>
   );
 };

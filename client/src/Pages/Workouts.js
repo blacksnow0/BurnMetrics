@@ -33,7 +33,7 @@ const Workouts = () => {
   };
 
   return (
-    <div className="workout-container flex min-h-screen justify-center items-center text-center">
+    <div className="flex min-h-screen justify-center items-center text-center">
       {/* Select Fitness Goal */}
       {!fitnessGoal && <WorkoutPlanSelector setFitnessGoal={setFitnessGoal} />}
 
