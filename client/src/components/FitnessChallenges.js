@@ -38,7 +38,7 @@ const FitnessChallenges = () => {
     <div className="min-h-screen py-8 lg:mx-48">
       <div>
         <div>
-          <h2 className="text-3xl font-bold text-center mb-6">
+          <h2 className="text-4xl md:text-5xl font-bold text-center mb-6 text-orange-500">
             Fitness Challenges
           </h2>
           <p className="text-center text-gray-700 text-sm mb-6 tracking-widest">
