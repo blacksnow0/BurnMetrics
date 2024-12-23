@@ -7,24 +7,70 @@ import {
   faChevronUp,
 } from "@fortawesome/free-solid-svg-icons";
 import { useAuthContext } from "../../hooks/useAuthContext";
-import WorkoutDisplay from "./WorkoutDisplay";
 
 const CreateWorkout = () => {
   const [days, setDays] = useState([
-    { title: "Day 1", exercises: [], selectedBodyPart: "" },
+    {
+      title: "Day 1",
+      exercises: [],
+      selectedBodyPart: "",
+      showExerciseOptions: false,
+    },
   ]);
 
-  const [showExerciseOptions, setShowExerciseOptions] = useState(false);
   const [message, setMessage] = useState("");
   const { user } = useAuthContext();
 
   const exercisesByBodyPart = {
-    Chest: ["Bench Press", "Push-Ups", "Chest Fly"],
-    Legs: ["Squats", "Deadlift", "Lunges"],
-    Back: ["Pull-Ups", "Lat Pulldown", "Single-Arm Cable Rows"],
-    Arms: ["Bicep Curls", "Tricep Extensions", "Dumbbell Shrugs"],
-    Core: ["Plank", "Sit-Ups", "Leg Raises"],
-    Cardio: ["Running", "Cycling", "Jump Rope"],
+    Chest: [
+      "Barbell Bench Press",
+      "Incline Dumbbell Press",
+      "Cable Chest Fly",
+      "Push-Ups (Wide-Grip)",
+      "Dips (Chest-Focused)",
+    ],
+    Legs: [
+      "Barbell Back Squat",
+      "Romanian Deadlift",
+      "Walking Lunges",
+      "Leg Press Machine",
+      "Bulgarian Split Squat",
+    ],
+    Back: [
+      "Pull-Ups (Overhand Grip)",
+      "Barbell Deadlift",
+      "Seated Cable Rows",
+      "Bent-Over Barbell Rows",
+      "Lat Pulldown (Wide-Grip)",
+    ],
+    Arms: [
+      "Dumbbell Bicep Curls",
+      "Tricep Dips on Parallel Bars",
+      "Hammer Curls (Neutral Grip)",
+      "Overhead Tricep Extension (Dumbbell)",
+      "EZ-Bar Skull Crushers",
+    ],
+    Core: [
+      "Hanging Leg Raises",
+      "Russian Twists with Medicine Ball",
+      "Ab Wheel Rollouts",
+      "Side Plank with Hip Dips",
+      "Bicycle Crunches",
+    ],
+    Cardio: [
+      "High-Intensity Interval Training (HIIT)",
+      "Treadmill Running (Incline)",
+      "Stationary Bike (Sprints)",
+      "Rowing Machine",
+      "Burpees",
+    ],
+    FunctionalFitness: [
+      "Kettlebell Swings",
+      "Battle Ropes",
+      "Farmer's Carry",
+      "Box Jumps",
+      "Wall Balls (Medicine Ball)",
+    ],
   };
 
   const handleAddDay = () => {
@@ -34,17 +80,35 @@ const CreateWorkout = () => {
         title: `Day ${prevDays.length + 1}`,
         exercises: [],
         selectedBodyPart: "",
+        showExerciseOptions: false,
       },
     ]);
   };
 
+  const toggleExerciseOptions = (dayIndex) => {
+    setDays((prevDays) =>
+      prevDays.map((day, idx) => {
+        if (idx === dayIndex) {
+          return { ...day, showExerciseOptions: !day.showExerciseOptions };
+        }
+        return day; // Keep other days unchanged
+      })
+    );
+  };
+
   const handleBodyPartChange = (dayIndex, bodyPart) => {
-    setDays((prevDays) => {
-      setShowExerciseOptions(!showExerciseOptions);
-      const updatedDays = [...prevDays];
-      updatedDays[dayIndex].selectedBodyPart = bodyPart;
-      return updatedDays;
-    });
+    setDays((prevDays) =>
+      prevDays.map((day, idx) => {
+        if (idx === dayIndex) {
+          return {
+            ...day,
+            selectedBodyPart: bodyPart,
+            showExerciseOptions: !day.showExerciseOptions,
+          };
+        }
+        return day; // Keep other days unchanged
+      })
+    );
   };
 
   const handleAddExercise = (dayIndex, exerciseName) => {
@@ -61,11 +125,19 @@ const CreateWorkout = () => {
   };
 
   const handleRemoveExercise = (dayIndex, exerciseIndex) => {
-    setDays((prevDays) => {
-      const updatedDays = [...prevDays];
-      updatedDays[dayIndex].exercises.splice(exerciseIndex, 1);
-      return updatedDays;
-    });
+    setDays((prevDays) =>
+      prevDays.map((day, idx) => {
+        if (idx === dayIndex) {
+          return {
+            ...day,
+            exercises: day.exercises.filter(
+              (_, exIdx) => exIdx !== exerciseIndex
+            ),
+          };
+        }
+        return day;
+      })
+    );
   };
 
   const handleSubmit = async () => {
@@ -80,50 +152,55 @@ const CreateWorkout = () => {
           },
         }
       );
+      console.log(response);
+
+      // Clear the form (reset days and message)
+      setDays([
+        {
+          title: "Day 1",
+          exercises: [],
+          selectedBodyPart: "",
+          showExerciseOptions: false,
+        },
+      ]);
       setMessage("Workout plan created successfully!");
     } catch (error) {
+      console.error(error);
       setMessage("Failed to create workout plan.");
     }
   };
 
   return (
     <div>
-      <div className="min-h-screen flex flex-col justify-center items-center p-4">
-        <h2 className="text-2xl font-bold text-center mb-6">
+      <div className="min-h-screen bg-gray-50 flex flex-col justify-center items-center p-6">
+        <h2 className="text-3xl font-semibold text-gray-800 mb-6">
           Create Workout Plan
         </h2>
 
-        <div className="text-center m-6">
-          <button
-            onClick={handleAddDay}
-            className="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-md shadow-md"
-          >
-            Add Another Day
-          </button>
-        </div>
-
-        <div className="w-full">
+        <div className="w-full overflow-hidden">
           <div
-            className="grid grid-cols-1 lg:grid-cols-3 gap-6 overflow-x-auto lg:overflow-x-hidden"
+            className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:overflow-x-hidden"
             style={{ scrollSnapType: "x mandatory" }}
           >
             {days.map((day, index) => (
               <div
                 key={index}
-                className="bg-white shadow-md rounded-md p-4 min-w-full lg:min-w-[280px]"
+                className="bg-white shadow-lg rounded-lg p-5 min-w-full lg:min-w-[280px] transition-all duration-300 hover:shadow-2xl hover:scale-105"
                 style={{ scrollSnapAlign: "start" }}
               >
-                <h3 className="text-lg font-bold mb-4">{day.title}</h3>
+                <h3 className="text-xl font-semibold text-gray-900 mb-4">
+                  {day.title}
+                </h3>
 
                 <div>
-                  <label className="block text-sm font-semibold mb-1">
+                  <label className="block text-sm font-semibold text-gray-700 mb-2">
                     Select Body Part
                   </label>
                   <select
                     onChange={(e) =>
                       handleBodyPartChange(index, e.target.value)
                     }
-                    className="w-full px-4 py-2 border rounded-md mb-4"
+                    className="w-full px-4 py-2 border-2 border-gray-300 rounded-md focus:ring-2 focus:ring-blue-400 focus:outline-none"
                     value={day.selectedBodyPart}
                   >
                     <option value="">Select a Body Part</option>
@@ -136,37 +213,37 @@ const CreateWorkout = () => {
                 </div>
 
                 {day.selectedBodyPart && (
-                  <div>
+                  <div className="mt-4">
                     <div className="flex items-center justify-between mb-2">
-                      <label className="block text-sm font-semibold">
+                      <label className="block text-sm font-semibold text-gray-700">
                         Select Exercise
                       </label>
                       <button
-                        onClick={() =>
-                          setShowExerciseOptions(!showExerciseOptions)
-                        }
+                        onClick={() => toggleExerciseOptions(index)}
                         className={`${
-                          showExerciseOptions
-                            ? "bg-orange-600 hover:bg-orange-700"
+                          day.showExerciseOptions
+                            ? "bg-blue-600 hover:bg-blue-700"
                             : "bg-orange-500 hover:bg-orange-600"
-                        } text-white px-3 py-1 rounded-md text-sm`}
+                        } text-white px-3 py-2 rounded-md text-sm transition-colors duration-200`}
                       >
                         <FontAwesomeIcon
                           icon={
-                            showExerciseOptions ? faChevronUp : faChevronDown
+                            day.showExerciseOptions
+                              ? faChevronUp
+                              : faChevronDown
                           }
                         />
                       </button>
                     </div>
 
-                    {showExerciseOptions && (
+                    {day.showExerciseOptions && (
                       <div className="grid grid-cols-1 gap-2 mb-4">
                         {exercisesByBodyPart[day.selectedBodyPart].map(
                           (exercise, idx) => (
                             <div
                               key={idx}
                               onClick={() => handleAddExercise(index, exercise)}
-                              className="cursor-pointer bg-gray-100 hover:bg-gray-200 text-gray-800 p-2 rounded-md shadow-sm"
+                              className="cursor-pointer bg-gradient-to-r from-gray-100 to-gray-200 text-gray-800 px-4 py-2 rounded-lg shadow-sm hover:scale-105 hover:shadow-md transition-all duration-200"
                             >
                               {exercise}
                             </div>
@@ -182,12 +259,12 @@ const CreateWorkout = () => {
                     {day.exercises.map((exercise, idx) => (
                       <li
                         key={idx}
-                        className="flex items-center justify-between bg-gray-100 p-2 rounded-md shadow-sm"
+                        className="flex items-center justify-between bg-gray-100 p-3 rounded-lg shadow-sm hover:bg-gray-200 transition-colors duration-200"
                       >
                         {exercise.name}
                         <button
                           onClick={() => handleRemoveExercise(index, idx)}
-                          className="text-orange-500 hover:text-orange-600"
+                          className="text-red-500 hover:text-red-600"
                         >
                           <FontAwesomeIcon icon={faTrash} />
                         </button>
@@ -199,29 +276,38 @@ const CreateWorkout = () => {
                 )}
               </div>
             ))}
+            <div className="text-center mb-6">
+              <button
+                onClick={handleAddDay}
+                className="bg-gradient-to-r from-orange-400 to-orange-500 hover:from-orange-500 hover:to-orange-600 text-white px-6 py-2 rounded-lg shadow-lg transition-colors duration-200"
+              >
+                Add Day
+              </button>
+            </div>
           </div>
         </div>
 
-        {/* Submission Section */}
-        <div className="mt-6 text-center">
+        <div className="mt-6">
           <button
             onClick={handleSubmit}
-            className="bg-orange-500 hover:bg-orange-600 text-white px-6 py-2 rounded-md shadow-md"
+            className="bg-gradient-to-r from-green-400 to-green-500 text-white px-6 py-2 rounded-lg shadow-lg hover:bg-green-600 transition-colors duration-200"
           >
-            Create Workout
+            Submit Workout Plan
           </button>
-          {message && (
-            <p
-              className={`mt-4 text-sm ${
-                message.includes("success") ? "text-green-600" : "text-red-600"
-              }`}
-            >
-              {message}
-            </p>
-          )}
         </div>
+
+        {message && (
+          <div
+            className={`mt-6 text-center font-semibold ${
+              message.includes("successfully")
+                ? "text-green-500"
+                : "text-red-500"
+            }`}
+          >
+            {message}
+          </div>
+        )}
       </div>
-      <WorkoutDisplay />
     </div>
   );
 };

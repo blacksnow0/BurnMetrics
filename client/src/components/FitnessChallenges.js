@@ -35,7 +35,7 @@ const FitnessChallenges = () => {
   ];
 
   return (
-    <div className="min-h-screen py-8 lg:mx-48">
+    <div className="md:min-h-screen py-8 lg:mx-48">
       <div>
         <div>
           <h2 className="text-4xl md:text-5xl font-bold text-center mb-6 text-orange-500">

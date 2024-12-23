@@ -124,6 +124,9 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper";
 import "swiper/css";
 import "swiper/css/pagination";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import CreateWorkout from "./CreateWorkout";
 
 const WorkoutDisplay = () => {
   const [workouts, setWorkouts] = useState([]);
@@ -154,32 +157,70 @@ const WorkoutDisplay = () => {
     fetchWorkouts();
   }, [user]);
 
+  const handleDelete = async (workoutId) => {
+    console.log(workoutId);
+    const originalWorkouts = [...workouts];
+
+    // Optimistically update the UI
+    setWorkouts((prevWorkouts) =>
+      prevWorkouts.filter((workout) => workout._id !== workoutId)
+    );
+    try {
+      await axios.delete(
+        `http://localhost:5001/api/workouts/delete/${workoutId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+          },
+        }
+      );
+
+      console.log("Workout Deleted Sucessfully");
+    } catch (error) {
+      console.log(error, "Error deleting workout");
+      setWorkouts(originalWorkouts);
+    }
+  };
+
   if (loading) {
     return <div className="text-center py-5">Loading workouts...</div>;
   }
 
   if (!workouts.length) {
-    return <div className="text-center py-5">No workouts found.</div>;
+    return (
+      <div className="text-center py-5">
+        You have no Workouts
+        <button className="m-2 bg-orange-500 hover:bg-orange-600 text-white px-6 py-2 rounded-md shadow-md">
+          <a href="/workouts/create">Create-Workout</a>
+        </button>
+      </div>
+    );
   }
 
   return (
-    <div className="p-5">
+    <div className="p-5 bg-gray-100">
       {workouts.map((workout) => (
-        <div
-          key={workout._id}
-          className="border border-gray-300 rounded-lg shadow-xl p-6 mb-8 bg-white"
-        >
+        <div key={workout._id} className=" p-6 mb-8  ">
           {/* Workout Title Section */}
-          <div className="relative flex justify-between mb-6 p-4 rounded-lg bg-gradient-to-r from-purple-100 via-yellow-50 to-white">
-            <h2 className="text-xl md:text-3xl font-extrabold text-orange-500">
-              {workout.title}
-            </h2>
-            {/* Created At Date */}
-            <div className="">
-              <span className="text-lg text-orange-500 font-bold">
-                {new Date(workout.createdAt).toLocaleDateString()}
-              </span>
+          <div className="relative flex justify-between mb-6  p-4 rounded-lg bg-gradient-to-r from-purple-100 via-yellow-50 to-white">
+            <div>
+              <h2 className="text-xl font-extrabold text-orange-500">
+                {workout.title}
+              </h2>
+              {/* Created At Date */}
+              <div>
+                <span className="text-lg text-orange-500 font-semibold">
+                  {new Date(workout.createdAt).toLocaleDateString()}
+                </span>
+              </div>
             </div>
+            {/* Delete Button */}
+            <button
+              onClick={() => handleDelete(workout._id)}
+              className=" text-orange-500 px-4 rounded-lg shadow hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-red-300"
+            >
+              <FontAwesomeIcon icon={faTrash} />
+            </button>
           </div>
 
           {/* Days in a Slider */}
