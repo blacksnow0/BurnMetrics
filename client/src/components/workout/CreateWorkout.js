@@ -9,6 +9,7 @@ import {
 import { useAuthContext } from "../../hooks/useAuthContext";
 
 const CreateWorkout = () => {
+  const [title, setTitle] = useState("");
   const [days, setDays] = useState([
     {
       title: "Day 1",
@@ -142,10 +143,9 @@ const CreateWorkout = () => {
 
   const handleSubmit = async () => {
     try {
-      const name = "Title is this";
       const response = await axios.post(
         "http://localhost:5001/api/workouts/create",
-        { name, days },
+        { name: title, days },
         {
           headers: {
             Authorization: `Bearer ${user.token}`,
@@ -163,6 +163,7 @@ const CreateWorkout = () => {
           showExerciseOptions: false,
         },
       ]);
+      setTitle("");
       setMessage("Workout plan created successfully!");
     } catch (error) {
       console.error(error);
@@ -170,12 +171,37 @@ const CreateWorkout = () => {
     }
   };
 
+  const handleToggleExercise = (dayIndex, exercise) => {
+    const day = days[dayIndex];
+    const exerciseIndex = day.exercises.findIndex((e) => e.name === exercise);
+
+    if (exerciseIndex === -1) {
+      // Exercise is not in the list, so add it
+      handleAddExercise(dayIndex, exercise);
+    } else {
+      // Exercise is already in the list, so remove it
+      handleRemoveExercise(dayIndex, exerciseIndex);
+    }
+  };
+
   return (
     <div>
-      <div className="min-h-screen bg-gray-50 flex flex-col justify-center items-center p-6">
-        <h2 className="text-3xl font-semibold text-gray-800 mb-6">
+      <div className="min-h-screen  flex flex-col justify-center items-center p-6">
+        <h2 className="text-3xl font-semibold text-orange-800 mb-6">
           Create Workout Plan
         </h2>
+        <div className="w-full max-w-lg mb-6">
+          <label className="block text-sm font-semibold text-gray-700 mb-2">
+            Workout Title
+          </label>
+          <input
+            type="text"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            placeholder="Enter your workout plan title"
+            className="w-full px-4 py-2 border-2 border-gray-300 rounded-md focus:ring-2 focus:ring-blue-400 focus:outline-none"
+          />
+        </div>
 
         <div className="w-full overflow-hidden">
           <div
@@ -222,7 +248,7 @@ const CreateWorkout = () => {
                         onClick={() => toggleExerciseOptions(index)}
                         className={`${
                           day.showExerciseOptions
-                            ? "bg-blue-600 hover:bg-blue-700"
+                            ? "bg-orange-500 hover:bg-orange-600"
                             : "bg-orange-500 hover:bg-orange-600"
                         } text-white px-3 py-2 rounded-md text-sm transition-colors duration-200`}
                       >
@@ -239,15 +265,27 @@ const CreateWorkout = () => {
                     {day.showExerciseOptions && (
                       <div className="grid grid-cols-1 gap-2 mb-4">
                         {exercisesByBodyPart[day.selectedBodyPart].map(
-                          (exercise, idx) => (
-                            <div
-                              key={idx}
-                              onClick={() => handleAddExercise(index, exercise)}
-                              className="cursor-pointer bg-gradient-to-r from-gray-100 to-gray-200 text-gray-800 px-4 py-2 rounded-lg shadow-sm hover:scale-105 hover:shadow-md transition-all duration-200"
-                            >
-                              {exercise}
-                            </div>
-                          )
+                          (exercise, idx) => {
+                            const isAdded = day.exercises.some(
+                              (e) => e.name === exercise
+                            );
+
+                            return (
+                              <div
+                                key={idx}
+                                onClick={() =>
+                                  handleToggleExercise(index, exercise)
+                                }
+                                className={`cursor-pointer px-4 py-2 rounded-lg shadow-sm transition-all duration-200 ${
+                                  isAdded
+                                    ? "bg-orange-200 text-gray-700 hover:scale-105 hover:shadow-md"
+                                    : "bg-gradient-to-r from-gray-100 to-gray-200 text-gray-800 hover:scale-105 hover:shadow-md"
+                                }`}
+                              >
+                                {exercise}
+                              </div>
+                            );
+                          }
                         )}
                       </div>
                     )}
