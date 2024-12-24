@@ -7,7 +7,7 @@ export const useRegister = () => {
   const register = async (formData) => {
     try {
       const res = await axios.post(
-        "http://localhost:5001/api/users/register",
+        "https://burnmetrics.onrender.com/api/users/register",
         formData
       );
       if (res.status === 200) {

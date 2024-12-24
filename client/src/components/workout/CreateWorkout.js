@@ -144,7 +144,7 @@ const CreateWorkout = () => {
   const handleSubmit = async () => {
     try {
       const response = await axios.post(
-        "http://localhost:5001/api/workouts/create",
+        "https://burnmetrics.onrender.com/api/workouts/create",
         { name: title, days },
         {
           headers: {

@@ -19,7 +19,7 @@ const WorkoutDisplay = () => {
       if (user && user.token) {
         try {
           const response = await axios.get(
-            "http://localhost:5001/api/workouts/getWorkout",
+            "https://burnmetrics.onrender.com/api/workouts/getWorkout",
             {
               headers: {
                 Authorization: `Bearer ${user.token}`,
@@ -46,7 +46,7 @@ const WorkoutDisplay = () => {
     );
     try {
       await axios.delete(
-        `http://localhost:5001/api/workouts/delete/${workoutId}`,
+        `https://burnmetrics.onrender.com/api/workouts/delete/${workoutId}`,
         {
           headers: {
             Authorization: `Bearer ${user.token}`,

@@ -7,10 +7,13 @@ export const useLogin = () => {
 
   const login = async (username, password) => {
     try {
-      const res = await axios.post("http://localhost:5001/api/users/login", {
-        username,
-        password,
-      });
+      const res = await axios.post(
+        "https://burnmetrics.onrender.com/api/users/login",
+        {
+          username,
+          password,
+        }
+      );
       if (res.status === 200) {
         const { username, token } = res.data;
         localStorage.setItem("user", JSON.stringify({ username, token }));

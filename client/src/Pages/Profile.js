@@ -22,11 +22,14 @@ const Profile = () => {
     const fetchUserData = async () => {
       if (user && user.token) {
         try {
-          const response = await axios.get("http://localhost:5001/api/users/", {
-            headers: {
-              Authorization: `Bearer ${user.token}`,
-            },
-          });
+          const response = await axios.get(
+            "https://burnmetrics.onrender.com/api/users/",
+            {
+              headers: {
+                Authorization: `Bearer ${user.token}`,
+              },
+            }
+          );
           setUserData(response.data.user);
           console.log(response.data.user.profile);
         } catch (error) {
