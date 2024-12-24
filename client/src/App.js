@@ -23,7 +23,6 @@ function App() {
   if (!isAuthReady) {
     return <div>Loading...</div>;
   }
-  console.log(user);
   return (
     <Router>
       <Navbar />
