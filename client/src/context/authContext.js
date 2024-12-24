@@ -20,18 +20,18 @@ export const AuthContextProvider = ({ children }) => {
     user: null,
   });
 
-  const [authIsReady, setAuthIsReady] = useState(false);
+  const [isAuthReady, setIsAuthReady] = useState(false);
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("user"));
     if (user) {
       dispatch({ type: "LOGIN", payload: user });
     }
-    setAuthIsReady(true);
+    setIsAuthReady(true);
   }, []);
 
   return (
-    <AuthContext.Provider value={{ ...state, dispatch, authIsReady }}>
+    <AuthContext.Provider value={{ ...state, dispatch, isAuthReady }}>
       {children}
     </AuthContext.Provider>
   );

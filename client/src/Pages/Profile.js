@@ -4,7 +4,8 @@ import { useAuthContext } from "../hooks/useAuthContext";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-import image from "../Assets/bumstead.jpeg";
+// import image from "../Assets/bumstead.jpeg";
+import henry from "../Assets/henry.jpeg";
 import WorkoutDisplay from "../components/workout/WorkoutDisplay";
 
 const Profile = () => {
@@ -13,7 +14,7 @@ const Profile = () => {
   const [userData, setUserData] = useState(null);
   const staticData = {
     age: 23,
-    avatar: image,
+    avatar: henry,
   };
   const navigate = useNavigate();
 
