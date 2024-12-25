@@ -5,7 +5,10 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 // import image from "../Assets/bumstead.jpeg";
-import henry from "../Assets/henry.jpeg";
+// import henry from "../Assets/henry.jpeg";
+import berserk from "../Assets/berserk wallpaper.jpeg";
+// import snoop from "../Assets/snoop.jpeg";
+// import chill from "../Assets/chill.jpeg"
 import WorkoutDisplay from "../components/workout/WorkoutDisplay";
 
 const Profile = () => {
@@ -14,7 +17,7 @@ const Profile = () => {
   const [userData, setUserData] = useState(null);
   const staticData = {
     age: 23,
-    avatar: henry,
+    avatar: berserk,
   };
   const navigate = useNavigate();
 
@@ -59,11 +62,12 @@ const Profile = () => {
             <img
               src={staticData.avatar}
               alt="Profile"
-              className="w-32 h-32 rounded-full object-cover border-4 border-orange-500"
+              className="w-32 h-32 object-cover "
             />
             {user ? (
-              <h1 className="mt-4 text-2xl font-bold text-gray-800">
-                {userData.username}
+              <h1 className="mt-4 text-2xl font-bold text-gray-800 tracking-widest">
+                <span className="text-orange-600">@</span>
+                {userData.username.toUpperCase()}
               </h1>
             ) : (
               <h1 className="mt-4 text-2xl font-bold text-gray-800">
@@ -75,30 +79,30 @@ const Profile = () => {
 
           {/* Profile Information */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="bg-gray-50 p-4 rounded-lg shadow-sm">
-              <h2 className="text-lg font-semibold text-gray-700">Age</h2>
-              <p className="mt-1 text-gray-800">{userData.profile.age} years</p>
+            <div className="bg-orange-200 p-4 rounded-lg shadow-sm">
+              <h2 className="text-lg font-bold text-gray-500">Age</h2>
+              <p className="mt-1 text-gray-700 font-semibold">
+                {userData.profile.age} years
+              </p>
             </div>
 
-            <div className="bg-gray-50 p-4 rounded-lg shadow-sm">
-              <h2 className="text-lg font-semibold text-gray-700">Height</h2>
-              <p className="mt-1 text-gray-800">
+            <div className="bg-orange-200 p-4 rounded-lg shadow-sm">
+              <h2 className="text-lg font-bold text-gray-500">Height</h2>
+              <p className="mt-1 text-gray-700 font-semibold">
                 {userData.profile.height || "N/A"}
               </p>
             </div>
 
-            <div className="bg-gray-50 p-4 rounded-lg shadow-sm">
-              <h2 className="text-lg font-semibold text-gray-700">Weight</h2>
-              <p className="mt-1 text-gray-800">
+            <div className="bg-orange-200 p-4 rounded-lg shadow-sm">
+              <h2 className="text-lg font-bold text-gray-500">Weight</h2>
+              <p className="mt-1 text-gray-700 font-semibold">
                 {userData.profile.weight || "N/A"}
               </p>
             </div>
 
-            <div className="bg-gray-50 p-4 rounded-lg shadow-sm">
-              <h2 className="text-lg font-semibold text-gray-700">
-                Fitness Goal
-              </h2>
-              <p className="mt-1 text-gray-800">
+            <div className="bg-orange-200 p-4 rounded-lg shadow-sm">
+              <h2 className="text-lg font-bold text-gray-500">Fitness Goal</h2>
+              <p className="mt-1 text-gray-700 font-semibold">
                 {userData.profile.fitnessGoal || "N/A"}
               </p>
             </div>
