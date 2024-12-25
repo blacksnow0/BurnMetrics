@@ -86,7 +86,7 @@ const Navbar = () => {
 
       {/* Mobile Navigation */}
       {isOpen && (
-        <div className="md:hidden">
+        <div className="md:hidden animate-slideIn">
           <a
             href="/"
             className="block px-3 py-2 rounded-md text-sm font-medium"

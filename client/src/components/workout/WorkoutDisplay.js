@@ -77,7 +77,7 @@ const WorkoutDisplay = () => {
   }
 
   return (
-    <div className="p-5 bg-gray-100">
+    <div className="p-5">
       {workouts.map((workout) => (
         <div key={workout._id} className=" p-6 mb-8  ">
           {/* Workout Title Section */}
