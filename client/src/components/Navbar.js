@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser, faUserAstronaut } from "@fortawesome/free-solid-svg-icons";
+import { faUser } from "@fortawesome/free-solid-svg-icons";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -77,7 +77,7 @@ const Navbar = () => {
             <a href="/profile" aria-label="Go to profile">
               <FontAwesomeIcon
                 icon={faUser}
-                className="bg-gray-400 text-white p-3 rounded-full"
+                className=" text-gray-600 text-xl p-2 rounded-full"
               />
             </a>
           </div>
