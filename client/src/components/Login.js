@@ -25,7 +25,7 @@ const Login = () => {
     setError(""); // Clear previous error
     try {
       await login(formData.username, formData.password);
-      console.log(formData);
+
       alert("Login Successful!");
       navigate("/profile");
 
