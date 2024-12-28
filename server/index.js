@@ -30,13 +30,9 @@ app.get("/", (req, res) => {
   res.json("hello from the backend");
 });
 
-app.get("/fumble", (req, res) => {
-  res.json("he fumbelled the bag");
-});
-
 app.post("/posting", (req, res) => {
   const { username } = req.body;
-  res.json(username);
+  res.json({ username });
 });
 
 app.use("/api/users", userRouter);
