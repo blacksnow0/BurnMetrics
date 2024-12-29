@@ -17,6 +17,9 @@ export const useRegister = () => {
       }
     } catch (err) {
       console.error("Registeration failed", err.response?.data || err.message);
+      throw (
+        err.response?.data?.message || "Registeration failed. Please try again."
+      );
     }
   };
   return { register };

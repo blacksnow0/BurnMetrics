@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 const Register = () => {
   const navigate = useNavigate();
   const { register } = useRegister();
+  const [error, setError] = useState("");
   const [formData, setFormData] = useState({
     username: "",
     email: "",
@@ -39,29 +40,31 @@ const Register = () => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (formData.password !== formData.confirmPassword) {
       alert("Passwords do not match!");
       return;
     }
-
-    console.log("User Data:", formData);
-    alert("Registration Successful!");
-    register(formData);
-    navigate("/profile");
-
-    setFormData({
-      username: "",
-      email: "",
-      password: "",
-      confirmPassword: "",
-      height: "",
-      weight: "",
-      fitnessGoal: "",
-      age: "",
-    });
+    setError("");
+    try {
+      await register(formData);
+      alert("Registration Successful!");
+      navigate("/profile");
+      setFormData({
+        username: "",
+        email: "",
+        password: "",
+        confirmPassword: "",
+        height: "",
+        weight: "",
+        fitnessGoal: "",
+        age: "",
+      });
+    } catch (err) {
+      setError(err.message || "Failed to register. Please try again.");
+    }
   };
 
   return (
@@ -71,6 +74,12 @@ const Register = () => {
           Register
         </h2>
         <form className="space-y-4" onSubmit={handleSubmit}>
+          {/* Display Error */}
+          {error && (
+            <div className="p-3 text-sm text-red-700 bg-red-100 rounded-md">
+              {error}
+            </div>
+          )}
           {/* Username */}
           <div>
             <label
