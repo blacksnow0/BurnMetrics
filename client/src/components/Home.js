@@ -53,6 +53,7 @@ const Home = () => {
         <div className="absolute bottom-10 right-10 w-28 h-28 md:w-32 md:h-32 bg-yellow-400 rounded-full opacity-70 blur-lg"></div>
         <div className="absolute bottom-16 left-1/4 w-36 h-36 md:w-48 md:h-48 bg-purple-300 rounded-full opacity-40 blur-xl animate-bounce"></div>
         <div className="absolute top-16 right-1/5 w-40 h-40 md:w-48 md:h-48 bg-red-300 rounded-full opacity-40 blur-xl"></div>
+        <div className="absolute top-16 left-1/5 w-40 h-40 md:w-48 md:h-48 bg-blue-300 rounded-full opacity-40 blur-xl"></div>
       </div>
 
       {/* Additional Sections */}
