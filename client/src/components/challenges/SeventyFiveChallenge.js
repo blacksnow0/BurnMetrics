@@ -3,6 +3,8 @@ import ProgressBar from "../ProgressBar";
 import DailyChecklist from "../DailyChecklist";
 import CalendarView from "../CalendarView";
 
+import image from "../../Assets/Untitled.jpeg";
+
 const SeventyFiveChallenge = () => {
   const [progress, setProgress] = useState(0);
   const [history, setHistory] = useState(
@@ -12,11 +14,11 @@ const SeventyFiveChallenge = () => {
 
   console.log(history);
   const [dailyTasks, setDailyTasks] = useState({
-    "Workout 1": false,
-    "Workout 2": false,
-    "Drink Water": false,
-    "Read 10 Pages": false,
-    "Follow a Diet": false,
+    workoutSession: false,
+    updateGithub: false,
+    drinkWater: false,
+    readBook: false,
+    runningExercise: false,
   });
 
   const handleTaskCompletion = (task) => {
@@ -40,11 +42,26 @@ const SeventyFiveChallenge = () => {
 
   return (
     <div className="min-h-screen p-8">
-      <h1 className="text-4xl font-bold text-center mb-4 lg:mb-16 tracking-widest">
-        75-Hard
-      </h1>
+      <div className="flex flex-col lg:flex-row items-center lg:justify-center lg:space-x-8 mb-5">
+        <div className="relative w-80 h-80 shadow-lg">
+          <img
+            src={image}
+            alt="cover art"
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
+          <h1 className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-xl font-bold text-white text-center">
+            75-Hard
+          </h1>
+        </div>
+        <div className="mt-6 lg:mt-0 w-full lg:w-auto">
+          <DailyChecklist
+            tasks={dailyTasks}
+            onTaskToggle={handleTaskCompletion}
+          />
+        </div>
+      </div>
       <ProgressBar progress={progress} />
-      <DailyChecklist tasks={dailyTasks} onTaskToggle={handleTaskCompletion} />
       <button
         onClick={markDayComplete}
         className="bg-orange-500 hover:bg-orange-600 text-white font-semibold py-3 px-6 rounded-md shadow-md transition duration-300 block mx-auto mt-4"

@@ -20,6 +20,7 @@ mongoose
   .then(() => {
     app.listen(PORT, () => {
       console.log(`Mongoose connected at port ${PORT}`);
+      console.log(`Connected to database at ${process.env.DB_URL}`);
     });
   })
   .catch((err) => {
