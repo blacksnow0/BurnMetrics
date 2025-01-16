@@ -1,6 +1,6 @@
 import React from "react";
-import FitnessChallenges from "./FitnessChallenges";
-import WorkoutDisplay from "./workout/WorkoutDisplay";
+import FitnessChallenges from "../components/challenges/FitnessChallenges";
+import WorkoutDisplay from "../components/workout/WorkoutDisplay";
 import homeArt from "../Assets/homeArt.jpeg";
 
 const Home = () => {

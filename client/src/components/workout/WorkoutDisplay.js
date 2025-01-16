@@ -7,6 +7,7 @@ import "swiper/css";
 import "swiper/css/pagination";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import LoadingScreen from "../LoadingScreen"; // Import the LoadingScreen component
 
 const WorkoutDisplay = () => {
   const [workouts, setWorkouts] = useState([]);
@@ -54,7 +55,7 @@ const WorkoutDisplay = () => {
         }
       );
 
-      console.log("Workout Deleted Sucessfully");
+      console.log("Workout Deleted Successfully");
     } catch (error) {
       console.log(error, "Error deleting workout");
       setWorkouts(originalWorkouts);
@@ -62,7 +63,8 @@ const WorkoutDisplay = () => {
   };
 
   if (loading) {
-    return <div className="text-center py-5">Loading workouts...</div>;
+    // Display the LoadingScreen while data is being fetched
+    return <LoadingScreen />;
   }
 
   if (!workouts.length) {
@@ -79,9 +81,9 @@ const WorkoutDisplay = () => {
   return (
     <div className="p-5">
       {workouts.map((workout) => (
-        <div key={workout._id} className=" p-6 mb-8  ">
+        <div key={workout._id} className=" p-6 mb-8">
           {/* Workout Title Section */}
-          <div className="relative flex justify-between mb-6  p-4 rounded-lg bg-gradient-to-r from-purple-100 via-yellow-50 to-white">
+          <div className="relative flex justify-between mb-6 p-4 rounded-lg bg-gradient-to-r from-purple-100 via-yellow-50 to-white">
             <div>
               <h2 className="text-xl font-extrabold text-orange-500">
                 {workout.title}
@@ -96,7 +98,7 @@ const WorkoutDisplay = () => {
             {/* Delete Button */}
             <button
               onClick={() => handleDelete(workout._id)}
-              className=" text-orange-500 px-4 rounded-lg shadow hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-red-300"
+              className="text-orange-500 px-4 rounded-lg shadow hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-red-300"
             >
               <FontAwesomeIcon icon={faTrash} />
             </button>

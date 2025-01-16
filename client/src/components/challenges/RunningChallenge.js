@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import ProgressBar from "../ProgressBar";
-import CalendarView from "../CalendarView";
+import ProgressBar from "./helperComponents/ProgressBar";
+import CalendarView from "./helperComponents/CalendarView";
 
 const RunningChallenge = () => {
   const totalTarget = 100; // 100 km target

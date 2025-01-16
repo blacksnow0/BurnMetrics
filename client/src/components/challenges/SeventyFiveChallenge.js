@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import ProgressBar from "../ProgressBar";
-import DailyChecklist from "../DailyChecklist";
-import CalendarView from "../CalendarView";
+import ProgressBar from "./helperComponents/ProgressBar";
+import DailyChecklist from "./helperComponents/DailyChecklist";
+import CalendarView from "./helperComponents/CalendarView";
 
 import image from "../../Assets/Untitled.jpeg";
 

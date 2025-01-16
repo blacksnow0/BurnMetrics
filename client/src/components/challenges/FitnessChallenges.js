@@ -6,10 +6,10 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 
-import seventfivehard from "../Assets/75hard.jpeg";
+import seventfivehard from "../../Assets/75hard.jpeg";
 
-import winter from "../Assets/winter.jpeg";
-import running from "../Assets/running.jpeg";
+import winter from "../../Assets/winter.jpeg";
+import running from "../../Assets/running.jpeg";
 
 const FitnessChallenges = () => {
   const challenges = [
