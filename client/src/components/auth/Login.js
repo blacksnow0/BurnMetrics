@@ -45,7 +45,7 @@ const Login = () => {
         <h2 className="text-2xl font-bold text-center text-gray-800">Login</h2>
 
         {loading ? (
-          <LoadingScreen message="Registering..." /> // Display loading while registering
+          <LoadingScreen message="Logging in..." /> // Display loading while registering
         ) : (
           <form className="space-y-4" onSubmit={handleSubmit}>
             {/* Display Error */}

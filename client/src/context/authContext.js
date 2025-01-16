@@ -1,4 +1,5 @@
 import { createContext, useEffect, useReducer, useState } from "react";
+import { jwtDecode } from "jwt-decode";
 
 export const AuthContext = createContext();
 
@@ -22,10 +23,21 @@ export const AuthContextProvider = ({ children }) => {
 
   const [isAuthReady, setIsAuthReady] = useState(false);
 
+  // Check if token is expired
+  const isTokenExpired = (token) => {
+    if (!token) return true;
+    const decodedToken = jwtDecode(token);
+    const currentTime = Date.now() / 1000; // current time in seconds
+    return decodedToken.exp < currentTime; // Check if token has expired
+  };
+
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("user"));
-    if (user) {
+    if (user && !isTokenExpired(user.token)) {
       dispatch({ type: "LOGIN", payload: user });
+    } else {
+      localStorage.removeItem("user");
+      dispatch({ type: "LOGOUT" });
     }
     setIsAuthReady(true);
   }, []);
