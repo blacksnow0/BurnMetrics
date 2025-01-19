@@ -15,7 +15,7 @@ const SeventyFiveChallenge = () => {
   console.log(history);
   const [dailyTasks, setDailyTasks] = useState({
     workoutSession: false,
-    GithubUpdate: false,
+    updateGithub: false,
     drinkWater: false,
     readBook: false,
     runningExercise: false,
