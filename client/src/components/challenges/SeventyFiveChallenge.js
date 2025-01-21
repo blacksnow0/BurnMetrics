@@ -1,18 +1,67 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ProgressBar from "./helperComponents/ProgressBar";
 import DailyChecklist from "./helperComponents/DailyChecklist";
 import CalendarView from "./helperComponents/CalendarView";
 
 import image from "../../Assets/Untitled.jpeg";
+import { useAuthContext } from "../../hooks/useAuthContext";
+import axios from "axios";
 
 const SeventyFiveChallenge = () => {
   const [progress, setProgress] = useState(0);
+  const [loading, setLoading] = useState(true);
+
+  const { user } = useAuthContext();
+
+  const [tasks, setTasks] = useState({});
+
+  useEffect(() => {
+    const fetchDailyTasks = async () => {
+      if (user && user.token) {
+        console.log("this ran", user.token);
+        try {
+          const response = await axios.get(
+            "http://localhost:5001/api/seventyfive/get",
+            {
+              headers: {
+                Authorization: `Bearer ${user.token}`,
+              },
+            }
+          );
+          setTasks(response.data.dailyTasks);
+
+          setLoading(false);
+        } catch (error) {
+          console.error("Failed to fetch daily tasks", error);
+          setLoading(false);
+        }
+      }
+    };
+    fetchDailyTasks();
+    console.log(tasks);
+  }, [user, tasks]);
+
+  const createFirst = async () => {
+    try {
+      const response = await axios.post(
+        "http://localhost:5001/api/seventyfive/sayHi",
+        {
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+          },
+        }
+      );
+      console.log(response);
+    } catch (error) {
+      console.error("falied to fetch ", error);
+    }
+  };
+
   const [history, setHistory] = useState(
     Array(10).fill(true).concat(Array(65).fill(false))
   );
   const startDate = "2024-12-04";
 
-  console.log(history);
   const [dailyTasks, setDailyTasks] = useState({
     workoutSession: false,
     updateGithub: false,
@@ -55,10 +104,7 @@ const SeventyFiveChallenge = () => {
           </h1>
         </div>
         <div className="mt-6 lg:mt-0 w-full lg:w-auto">
-          <DailyChecklist
-            tasks={dailyTasks}
-            onTaskToggle={handleTaskCompletion}
-          />
+          <DailyChecklist tasks={tasks} onTaskToggle={handleTaskCompletion} />
         </div>
       </div>
       <ProgressBar progress={progress} />
@@ -67,6 +113,12 @@ const SeventyFiveChallenge = () => {
         className="bg-orange-500 hover:bg-orange-600 text-white font-semibold py-3 px-6 rounded-md shadow-md transition duration-300 block mx-auto mt-4"
       >
         Complete Day
+      </button>
+      <button
+        onClick={createFirst}
+        className="bg-orange-500 hover:bg-orange-600 text-white font-semibold py-3 px-6 rounded-md shadow-md transition duration-300 block mx-auto mt-4"
+      >
+        createFirst
       </button>
       <CalendarView history={history} startDate={startDate} />
     </div>

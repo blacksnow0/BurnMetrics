@@ -5,6 +5,7 @@ const userRouter = require("./routes/userRoute");
 const cors = require("cors");
 const challengeRouter = require("./routes/challengeRoutes");
 const workoutRouter = require("./routes/workoutRoutes");
+const SeventyFiveRouter = require("./routes/challengeRoute/seventyfiveRoute");
 
 require("dotenv").config();
 
@@ -20,7 +21,6 @@ mongoose
   .then(() => {
     app.listen(PORT, () => {
       console.log(`Mongoose connected at port ${PORT}`);
-      console.log(`Connected to database at ${process.env.DB_URL}`);
     });
   })
   .catch((err) => {
@@ -41,3 +41,5 @@ app.use("/api/users", userRouter);
 app.use("/api/challenges", challengeRouter);
 
 app.use("/api/workouts", workoutRouter);
+
+app.use("/api/seventyfive", SeventyFiveRouter);

@@ -16,7 +16,7 @@ const fetchProfile = async (req, res) => {
     if (!user) {
       return res.status(404).json("user not found");
     }
-    res.status(200).json({ user });
+    res.status(200).json({ username: user.username });
   } catch (err) {
     console.log("this error was triggered", err.message);
   }
@@ -41,7 +41,7 @@ const loginUser = async (req, res) => {
       token,
     });
   } catch (err) {
-    res.status(400).json({ error: err.message });
+    res.status(404).json({ message: "this is active", error: err.message });
   }
 };
 
