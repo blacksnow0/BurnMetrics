@@ -16,7 +16,7 @@ const fetchProfile = async (req, res) => {
     if (!user) {
       return res.status(404).json("user not found");
     }
-    res.status(200).json({ username: user.username });
+    res.status(200).json({ user });
   } catch (err) {
     console.log("this error was triggered", err.message);
   }
